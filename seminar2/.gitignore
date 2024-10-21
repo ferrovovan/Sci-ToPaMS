@@ -1,0 +1,4 @@
+# seminar2/.gitignore
+__pycache__/
+docs/Python_02.pdf
+docs/Exercises_02.pdf
