@@ -1,0 +1,4 @@
+# seminar5/.gitignore
+__pycache__/
+docs/Python_05.pdf
+docs/Exercises_05.pdf
