@@ -1,4 +1,6 @@
 # seminar4/.gitignore
 __pycache__/
+source/__pycache__/
+
 docs/Python_04.pdf
 docs/Exercises_04.pdf
