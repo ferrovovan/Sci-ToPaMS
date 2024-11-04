@@ -52,3 +52,4 @@ if $RUN_PLOT_DEFLECTION_BIG; then
 	echo_green "Задание 4  с большими числами."
 	python3 plot_deflection.py -n 5000 -lambda_param 6.0 -N 10000 
 fi
+

@@ -13,7 +13,8 @@ def poisson_exponential_simulation(lambda_param: float, N: int) -> list:
 		# Генерируем интервалы между успехами, пока x <= 1
 		while x <= 1:
 			# Генерация расстояния между успехами по показательному распределению
-			x += np.random.exponential(1 / lambda_param)  # генерирует случайное значение на основе показательного распределения с параметром `1 / lambda_param`
+			# создаёт случайное значение на основе показательного распределения с параметром `1 / lambda_param`
+			x += np.random.exponential(1 / lambda_param)
 			if x <= 1:
 				successes += 1
 		
