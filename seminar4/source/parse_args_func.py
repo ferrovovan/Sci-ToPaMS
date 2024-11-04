@@ -8,7 +8,7 @@ def get_args(*args, description: str = ""):
 		elif arg == "n":
 			parser.add_argument("-n", type=int, default=100, help="параметр n (по умолчанию 100)")
 		elif arg == "N":
-			parser.add_argument("-N", type=int, default=100, help="количество итераций (по умолчанию 100)")
+			parser.add_argument("-N", type=int, default=1000, help="количество итераций (по умолчанию 1000)")
 
 	parsed_args = parser.parse_args()
 	# Валидация значений параметров

@@ -14,9 +14,12 @@ cd "$(dirname "$0")/source" || exit 1
 ## Примеры использования
 
 echo_green "Чтобы закрыть окно matplotlib нажмите 'q' или 'Ctrl + w'."
+
 RUN_TASK_1=true
 RUN_TASK_2=true
 RUN_TASK_3=true
+RUN_PLOT_DEFLECTION=true
+RUN_PLOT_DEFLECTION_BIG=false
 
 
 # Задание 1
@@ -36,4 +39,16 @@ fi
 if $RUN_TASK_3; then
 	echo_green "Задание 3."
 	python3 task3.py
+fi
+
+# Задание 4
+if $RUN_PLOT_DEFLECTION; then
+	echo_green "Задание 4."
+	python3 plot_deflection.py
+fi
+
+# Задание 4 с большими числами
+if $RUN_PLOT_DEFLECTION_BIG; then
+	echo_green "Задание 4  с большими числами."
+	python3 plot_deflection.py -n 5000 -lambda_param 6.0 -N 10000 
 fi

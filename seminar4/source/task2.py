@@ -1,4 +1,3 @@
-import argparse
 import numpy as np
 from plot_histogram_func import plot_histogram
 from parse_args_func import get_args
