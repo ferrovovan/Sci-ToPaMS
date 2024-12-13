@@ -1,0 +1,6 @@
+# seminar7/.gitignore
+__pycache__/
+
+docs/Exercises_07.pdf
+# По седьмому модулю не будет ни Python задания, 
+# ни коллоквиума.
