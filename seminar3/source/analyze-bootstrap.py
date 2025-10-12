@@ -3,6 +3,7 @@ import numpy as np
 import argparse
 from typing import Callable, Tuple
 
+
 # Шаг 2: Генерация выборки
 def generate_sample(size: int, scale: float = 1.0) -> np.ndarray:
 	"""
@@ -25,11 +26,11 @@ def sample_variance(data: np.ndarray) -> float:
 
 # Шаг 4: Бутстрап для доверительных интервалов
 def bootstrap_confidence_interval(
-	data: np.ndarray,
-	statistic: Callable[[np.ndarray], float],
-	num_samples: int = 1000,
-	confidence_level: float = 0.95
-) -> Tuple[float, float]:
+		data: np.ndarray,
+		statistic: Callable[[np.ndarray], float],
+		num_samples: int = 1000,
+		confidence_level: float = 0.95
+	) -> Tuple[float, float]:
 	"""
 	Оценивает доверительный интервал для заданной статистики методом бутстрапа.
 	"""
@@ -70,9 +71,11 @@ def main(sample_size: int, confidence_level: float, num_bootstrap_samples):
 		print("Длины доверительных интервалов равны.")
 
 
+
 if __name__ == "__main__":
 	# Обработка аргументов командной строки.
 	parser = argparse.ArgumentParser(description="Бутстрап-анализ для расчёта доверительных интервалов MAD и дисперсии.")
+
 	parser.add_argument('--sample-size', type=int, default=10000, help="Размер выборки (по умолчанию 10000)")
 	parser.add_argument('--confidence-level', type=float, default=0.95, help="Уровень доверия для интервалов (по умолчанию 0.95)")
 	parser.add_argument('--num-bootstrap-samples', type=int, default=1000, help="Количество бутстрап-выборок (по умолчанию 1000)")
