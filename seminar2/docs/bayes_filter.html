@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Python-task2: Наивный байесовский классификатор</title>
+  <!-- Подключаем MathJax для формул -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    body {
+      font-family: "DejaVu Sans", "Arial", sans-serif;
+      line-height: 1.5;
+      max-width: 900px;
+      margin: auto;
+      padding: 2em;
+    }
+    h1, h2, h3 {
+      color: #2c3e50;
+    }
+    code {
+      background: #f4f4f4;
+      padding: 2px 4px;
+      border-radius: 3px;
+    }
+    pre {
+      background: #f4f4f4;
+      padding: 8px;
+      border-radius: 4px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+<h1>Наивный байесовский классификатор</h1>
+
+<p>
+Цель — реализовать функцию, принимающую email (строкой) и классифицирующую его как <i>спам</i> или <i>не спам</i>. 
+Модель обучается на наборе писем.
+</p>
+
+<hr>
+
+<h2>1) Подготовка email-ов</h2>
+<ul>
+  <li>Игнорировать пунктуацию;</li>
+  <li>Переводить слова в нижний регистр;</li>
+  <li>Дублирующиеся слова учитывать один раз.</li>
+</ul>
+
+<p>Пример:</p>
+<pre>
+"Купите наш товар!" → {купите, наш, товар}
+</pre>
+
+<hr>
+
+<h2>2) Правило принятия решения</h2>
+
+<p>
+Нужно вычислить:
+</p>
+
+<p>
+\[
+P(\text{спам} \mid \{w_1, w_2, \dots, w_n\}), \quad
+P(\text{не спам} \mid \{w_1, w_2, \dots, w_n\})
+\]
+</p>
+
+<p>
+Сумма равна 1. Классифицируем как <b>спам</b>, если:
+</p>
+
+<p>
+\[
+P(\text{спам} \mid \{w_1, w_2, \dots, w_n\}) > 0.5
+\]
+</p>
+
+<hr>
+
+<h3>2.1) Теорема Байеса</h3>
+
+<p>
+Вероятности:
+</p>
+
+<p>
+\[
+P(\text{спам}) = \frac{\# \text{спам-писем}}{\# \text{всех писем}}, \quad
+P(\text{не спам}) = \frac{\# \text{обычных писем}}{\# \text{всех писем}}
+\]
+</p>
+
+<p>
+Наивное предположение: условная независимость слов.
+</p>
+
+<p>
+\[
+P(\{w_1,\dots,w_n\} \mid \text{спам}) =
+\prod_{k=1}^n P(w_k \mid \text{спам})
+\]
+</p>
+
+<p>
+\[
+P(\{w_1,\dots,w_n\} \mid \text{не спам}) =
+\prod_{k=1}^n P(w_k \mid \text{не спам})
+\]
+</p>
+
+<p>
+Пример вероятности:
+</p>
+
+<p>
+\[
+P(w \mid \text{спам}) = \frac{\# \text{спам-писем со словом } w}{\# \text{спам-писем}}
+\]
+</p>
+
+<hr>
+
+<h3>2.1.1) Сглаживание Лапласа</h3>
+
+<p>
+Чтобы избежать нулевых вероятностей:
+</p>
+
+<p>
+\[
+P(w \mid \text{спам}) =
+\frac{\# \text{спам-писем со словом } w + 1}{\# \text{спам-писем} + 2}
+\]
+</p>
+
+<hr>
+
+<h3>2.1.2) Как избегать погрешностей</h3>
+
+<p>
+Общая формула:
+</p>
+
+<p>
+\[
+P(\text{спам} \mid \{w_1,\dots,w_n\}) =
+\frac{P(\text{спам}) \prod_{k=1}^n P(w_k \mid \text{спам})}
+{P(\text{спам}) \prod_{k=1}^n P(w_k \mid \text{спам}) +
+ P(\text{не спам}) \prod_{k=1}^n P(w_k \mid \text{не спам})}
+\]
+</p>
+
+<p>
+Сравнение без знаменателя:
+</p>
+
+<p>
+\[
+P(\text{спам}) \prod_{k=1}^n P(w_k \mid \text{спам}) >
+P(\text{не спам}) \prod_{k=1}^n P(w_k \mid \text{не спам})
+\]
+</p>
+
+<p>
+Для устойчивости используем логарифмы:
+</p>
+
+<p>
+\[
+\log P(\text{спам}) + \sum_{k=1}^n \log P(w_k \mid \text{спам}) >
+\log P(\text{не спам}) + \sum_{k=1}^n \log P(w_k \mid \text{не спам})
+\]
+</p>
+
+</body>
+</html>
+

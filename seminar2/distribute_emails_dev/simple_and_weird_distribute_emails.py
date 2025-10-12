@@ -2,6 +2,7 @@ import os
 import shutil
 import random
 
+
 def count_emails(directory):
     """Подсчёт количества писем по категориям в заданной директории."""
     ham_count = 0
@@ -12,6 +13,7 @@ def count_emails(directory):
         elif 'spam' in root:
             spam_count += len(files)
     return ham_count, spam_count
+
 
 def collect_all_emails(training_dirs):
     """Сбор всех писем из обучающих директорий."""
@@ -27,7 +29,8 @@ def collect_all_emails(training_dirs):
 
     return ham_files, spam_files
 
-def distribute_emails(ham_files, spam_files, valide_dir, training_dirs, target_ratio=0.2):
+
+def distribute_emails(ham_files, spam_files, valide_dir, training_dirs, target_ratio: float):
     """Распределение писем по тренировочным и валидационной папке."""
     random.shuffle(ham_files)
     random.shuffle(spam_files)
@@ -69,10 +72,15 @@ def distribute_emails(ham_files, spam_files, valide_dir, training_dirs, target_r
     move_files(ham_valide_files, random.choice(training_dirs), 'ham', len(ham_valide_files) - ham_valide_count)
     move_files(spam_valide_files, random.choice(training_dirs), 'spam', len(spam_valide_files) - spam_valide_count)
 
+
 def main():
     base_directory = "database"
     training_dirs = [os.path.join(base_directory, f'enron{i}') for i in range(1, 7)]
     valide_dir = os.path.join(base_directory, 'valide')
+    
+    if not os.path.exists(base_directory):
+    	print("Ошибка: нужна папка database!")
+    	sys.exit(1)
 
     # Подсчёт писем в тренировочных директориях
     total_ham = 0
@@ -91,7 +99,7 @@ def main():
     ham_files, spam_files = collect_all_emails(training_dirs)
 
     # Распределение писем (20% в valide, 80% в тренировочные папки)
-    distribute_emails(ham_files, spam_files, valide_dir, training_dirs)
+    distribute_emails(ham_files, spam_files, valide_dir, training_dirs, target_ratio=0.2)
 
 if __name__ == "__main__":
     main()
