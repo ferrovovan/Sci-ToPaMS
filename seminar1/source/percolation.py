@@ -57,10 +57,10 @@ def is_path(grid, visited, x, y):
 		return True
 
 	# Проверяем соседние клетки
-	if (is_path(grid, visited, x + 1, y) or   # вниз
+	if (is_path(grid, visited, x + 1, y) or       # вниз
 		is_path(grid, visited, x - 1, y) or   # вверх
 		is_path(grid, visited, x, y + 1) or   # вправо
-		is_path(grid, visited, x, y - 1)):     # влево
+		is_path(grid, visited, x, y - 1)):    # влево
 		return True
 
 	return False
