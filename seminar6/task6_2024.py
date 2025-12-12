@@ -2,12 +2,15 @@ import pandas as pd
 import numpy as np
 import scipy.stats as st
 
+
+SEPARATE_LINE_LEN = 60
+
 # ============================
 # Задание №1: Подготовка данных
 # ============================
 
 # Загрузка данных
-df = pd.read_csv("House_Price.csv")
+df = pd.read_csv("House_Price_2024.csv")
 
 # Выделение целевой переменной
 target = pd.DataFrame(df["price"])  # y - что оцениваем
@@ -87,7 +90,7 @@ deleted_columns = []
 myX, myY = prepare_XY(df, target)
 
 while True:
-	print("=================================================")
+	print("\n", "=" * SEPARATE_LINE_LEN)
 	
 	# Оценка модели
 	# b, e, s = fit(myX, myY)
@@ -115,6 +118,8 @@ while True:
 	df_ = myX.shape[0] - myX.shape[1]  # степени свободы
 	p_values = 2 * st.t.cdf(-np.abs(t_statistics), df_)
 
+	# Можно красиво печатать таблицей,
+	# поставив в заголовке df.columns
 	print("t-статистика:", t_statistics)
 	print("p-значения:", p_values)
 
@@ -128,13 +133,13 @@ while True:
 	else:
 		break
 
+
 # ============================
 # Сохранение результата
 # ============================
-print("-----------------------------------------------------")
-print("-----------------------------------------------------")
-print("-----------------------------------------------------")
+for i in range(3):
+	print("-" * SEPARATE_LINE_LEN)
 print("Deleted:", deleted_columns)
 df = pd.concat([target, df], axis=1)  # Обратно приклеиваем цены
 print(df)
-df.to_csv('New_House_Price.csv', index=False)
+df.to_csv('New_House_Price_2024.csv', index=False)
