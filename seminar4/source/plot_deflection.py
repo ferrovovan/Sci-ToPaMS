@@ -6,6 +6,8 @@ from task1 import poisson_bernoulli_simulation
 from task2 import poisson_process_distances
 from task3 import poisson_exponential_simulation
 
+from math import factorial  # fix: numpy 2.0 
+
 
 def calculate_theoretical_exponential(lambda_param, num_bins, data_range):
     """Вычисляет теоретическую кривую для экспоненциального распределения."""
@@ -17,7 +19,8 @@ def calculate_theoretical_exponential(lambda_param, num_bins, data_range):
 def calculate_theoretical_poisson(lambda_param, max_k):
     """Вычисляет теоретическую вероятность для распределения Пуассона."""
     k_values = np.arange(0, max_k + 1)
-    factorial_vectorized = np.vectorize(np.math.factorial)
+    # factorial_vectorized = np.vectorize(np.math.factorial)  # old: numpy <2.0
+    factorial_vectorized = np.vectorize(factorial)  # new: numpy >2.0
     y_values = (np.exp(-lambda_param) * lambda_param ** k_values) / factorial_vectorized(k_values)
     return k_values, y_values
 
