@@ -7,9 +7,13 @@ from typing import Callable, Tuple
 # Шаг 2: Генерация выборки
 def generate_sample(size: int, scale: float = 1.0) -> np.ndarray:
 	"""
-	Генерирует выборку экспоненциального распределения.
+	Генерирует выборку
+	*  Экспоненциального распределения, согласно заданию.
+	*  Нормального распределения, при необходимости.
 	"""
+	# return np.random.normal(scale=scale, size=size)
 	return np.random.exponential(scale=scale, size=size)
+	
 
 # Шаг 3: Функции для расчёта статистик
 def mad(data: np.ndarray) -> float:
@@ -18,11 +22,13 @@ def mad(data: np.ndarray) -> float:
 	"""
 	return np.median(np.abs(data - np.median(data)))
 
+
 def sample_variance(data: np.ndarray) -> float:
 	"""
 	Расчёт выборочной дисперсии.
 	"""
 	return np.var(data, ddof=1)
+
 
 # Шаг 4: Бутстрап для доверительных интервалов
 def bootstrap_confidence_interval(
@@ -38,6 +44,10 @@ def bootstrap_confidence_interval(
 	for _ in range(num_samples):
 		sample = np.random.choice(data, size=len(data), replace=True)
 		bootstrap_statistics.append(statistic(sample))
+
+	# Для вывода дисперии
+	# for i in range(3):
+	#	print(f"{bootstrap_statistics[i]:.4f}")
 	
 	lower_percentile = (1.0 - confidence_level) / 2.0
 	upper_percentile = 1.0 - lower_percentile
