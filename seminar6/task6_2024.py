@@ -10,7 +10,7 @@ SEPARATE_LINE_LEN = 60
 # ============================
 
 # Загрузка данных
-df = pd.read_csv("House_Price_2024.csv")
+df = pd.read_csv("House_Prices_2024.csv")
 
 # Выделение целевой переменной
 target = pd.DataFrame(df["price"])  # y - что оцениваем
@@ -142,4 +142,4 @@ for i in range(3):
 print("Deleted:", deleted_columns)
 df = pd.concat([target, df], axis=1)  # Обратно приклеиваем цены
 print(df)
-df.to_csv('New_House_Price_2024.csv', index=False)
+df.to_csv('New_House_Prices_2024.csv', index=False)
